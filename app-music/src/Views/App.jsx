@@ -24,7 +24,7 @@ function App() {
       window.localStorage.setItem("token", token)
     }
 
-    setToken(token)
+setToken(token)
 
   }, [])
 
@@ -44,35 +44,33 @@ function App() {
         type: "artist"
       }
     })
-
     setArtists(data.artists.item)
-
+console.log(data);
   }
 
   const renderArtists = () => {
     return artists.map(artist => (
         <div key={artist.id}>
-            {artist.images ? <img width={"100%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
+            {artist.images.length ? <img width={"100%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
             {artist.name}
         </div>
     ))
 }
-
-  return (
+return (
     <div className="App">
       <header className="App-header">
         <div>
-          <h1>My Music App</h1>
+          <h1 className='nameApp'>My Music App</h1>
         </div>
         {!token ?
           <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to spotify</a>
-          : <button onClick={logout}>Logout</button>}
+          : <button onClick={logout} className="logout">Logout</button>}
 
         {!token ?
                   <h2>Please Login</h2>
                   : <form onSubmit={searchArtists}>
-          <input type="text" onChange={e => setSearchKey(e.target.value)} />
-          <button type="submit">Search</button>
+          <input placeholder='Name of Artist' type="text" onChange={e => setSearchKey(e.target.value)} />
+          <button type="submit" className="search">Search</button>
         </form>
         }
       {renderArtists()}

@@ -1,24 +1,39 @@
 import React from 'react';
 import '../Styles/App.css';
+import { useEffect, useState } from 'react';
+
 
 function App() {
+  const CLIENT_ID = '9cbb7469c3104485bbd0298a0a0f98d7';
+  const REDIRECT_URI = "http://localhost:3000";
+  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
+  const RESPONSE_TYPE = "token";
+
+  const [token, setToken] = useState("");
+
+  useEffect(() =>{
+    const hash = window.location.hash;
+    let token = window.localStorage.getItem("token");
+
+    if (!token && hash) {
+      token = hash.substring(1).find(elem => elem.startsWith("acces_token")).plit("=")[1]
+
+    window.location.hash = ""
+    window.localStorage.setItem("token", token);
+    }
+
+    setToken(token);
+
+  })
+
   return (
     <div className="App">
-      <header>
-        <form action="">
-        <label>
-          Genero
-          <input type="text" id="genre" name="genre" />
-        </label>
-        <hr />
-        <label>
-          Artista
-          <input type="text" id="playlist" name="playlist" />
-        </label>
-        </form>
-        <button>Enviar</button>
+      <header className="App-header">
+        <div>
+          <h1>My Music App</h1>
+        </div>
+      <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
       </header>
-
     </div>
   );
 }

@@ -44,9 +44,9 @@ setToken(token)
         type: "artist"
       }
     })
-    setArtists(data.artists.item)
-console.log(data);
-  }
+    console.log(data);
+   // setArtists(data.artists.item)
+   }
 
   const renderArtists = () => {
     return artists.map(artist => (
@@ -56,6 +56,7 @@ console.log(data);
         </div>
     ))
 }
+
 return (
     <div className="App">
       <header className="App-header">
